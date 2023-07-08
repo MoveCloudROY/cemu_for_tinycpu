@@ -484,15 +484,18 @@ private:
         return static_cast<int32_t>((hi10 << 16) | lo16) << 6 >> 6;
     }
 
+public:
+    int32_t GPR[32];
+
 private:
     bool                 trace;
     bool                 end;
     std::queue<uint32_t> pc_trace;
 
-    bool                    idle;
-    uint64_t                counter;
-    uint32_t                pc;
-    int32_t                 GPR[32];
+    bool     idle;
+    uint64_t counter;
+    uint32_t pc;
+
     la32r_mmu<nr_tlb_entry> mmu;
     la32r_csr<nr_tlb_entry> csr;
 };
