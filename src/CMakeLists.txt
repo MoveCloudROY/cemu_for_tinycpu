@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
 
-add_executable(test main.cpp)
-
 MACRO(HEADER_DIRECTORIES return_list)
     FILE(GLOB_RECURSE docs_list CONFIGURE_DEPENDS *.h *.hpp)
     SET(dir_list "")
@@ -21,13 +19,18 @@ foreach(path ${header_dir_list})
 message(STATUS "[INFO] - ${path}")
 endforeach()
 
-target_include_directories(
-    test
-    PUBLIC
-    ${header_dir_list}
-)
 
+if (CEMU_TEST)
+    add_executable(test main.cpp)
 
-target_compile_options(test PRIVATE -fno-omit-frame-pointer)
-target_compile_options(test PRIVATE -fsanitize=address)
-target_link_options(test PRIVATE -fsanitize=address)
+    target_include_directories(
+        test
+        PUBLIC
+        ${header_dir_list}
+    )
+
+    target_compile_options(test PRIVATE -fno-omit-frame-pointer)
+    target_compile_options(test PRIVATE -fsanitize=address)
+    target_link_options(test PRIVATE -fsanitize=address)
+
+endif()
