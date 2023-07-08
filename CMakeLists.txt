@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0)
 
-project(difftest)
+project(cemu)
 
 
 set(CEMU_TEST ON)
@@ -21,4 +21,4 @@ endif()
 
 add_subdirectory(src)
 
-export(TARGETS cemu FILE CemuConfig.cmake)
+export(TARGETS cemu FILE FindCemuConfig.cmake)
