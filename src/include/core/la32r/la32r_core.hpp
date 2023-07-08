@@ -81,7 +81,6 @@ private:
             csr.raise_trap(if_exc, pc);
             goto ctrl_trans_and_exception;
         }
-        std::printf("[Me] Inst: 0x%X\n", instr.dbg_inst);
         switch (instr._i26.opcode) { // OPCODE.length == 6
         case JIRL:
             cur_control_trans = true;
