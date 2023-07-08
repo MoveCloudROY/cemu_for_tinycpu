@@ -19,6 +19,8 @@ foreach(path ${header_dir_list})
 message(STATUS "[INFO] - ${path}")
 endforeach()
 
+add_library(cemu INTERFACE)
+target_include_directories(cemu INTERFACE ${header_dir_list})
 
 if (CEMU_TEST)
     add_executable(test main.cpp)
