@@ -46,7 +46,7 @@ ram data_mem5(0x1000000);
 
 int main(int argc, const char *argv[]) {
     memory_bus  mmio;
-    const char *path = "/home/roy1994/Code/Project/cemu/assets/fib.raw";
+    const char *path = "/home/roy1994/Code/Project/cemu/assets/user-sample.bin";
     func_mem.load_binary(0, path);
     func_mem.set_allow_warp(true);
 
@@ -71,7 +71,7 @@ int main(int argc, const char *argv[]) {
     while (running) {
 
         ++step_cnt;
-        std::printf("[Me-%4lu] pc: 0x%X\n", step_cnt, core.get_pc());
+        std::printf("[Me -%3lu] pc: 0x%X\n", step_cnt, core.get_pc());
         core.step();
         std::cout << "=====================" << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(500));

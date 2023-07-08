@@ -484,6 +484,7 @@ private:
         return static_cast<int32_t>((hi10 << 16) | lo16) << 6 >> 6;
     }
 
+private:
     bool                 trace;
     bool                 end;
     std::queue<uint32_t> pc_trace;

@@ -69,9 +69,9 @@ done
 # Link the object files into a single executable
 if [ "${#object_files[@]}" -gt 0 ]; then
 
-    loongarch32r-linux-gnusf-gcc ${opt} -static -nostdinc -nostdlib -ffreestanding -nostartfiles --sysroot=${LOONGTARGETSYSROOT} -o "$output_file_name.bin" "${object_files[@]}" -T $ldscript
+    loongarch32r-linux-gnusf-gcc ${opt} -static -nostdinc -nostdlib -ffreestanding -nostartfiles --sysroot=${LOONGTARGETSYSROOT} -o "$output_file_name.elf" "${object_files[@]}" -T $ldscript
     if [ $? -eq 0 ]; then
-        echo "Linking successful. The executable '$output_file_name.bin' is created."
+        echo "Linking successful. The executable '$output_file_name.elf' is created."
     else
         echo "Linking failed."
     fi
@@ -79,7 +79,7 @@ fi
 
 
 # Strip the Binary file
-loongarch32r-linux-gnusf-strip --strip-all "$output_file_name.bin"
+# loongarch32r-linux-gnusf-strip --strip-all "$output_file_name.elf"
 # Check if the strip was successful
 if [ $? -eq 0 ]; then
     echo "Strip successful."
@@ -88,10 +88,11 @@ else
 fi
 
 # Preview the RAW Binary file
-loongarch32r-linux-gnusf-objdump -fd "$output_file_name.bin"
+loongarch32r-linux-gnusf-objdump -fd "$output_file_name.elf"
 
 # Dump the code into a RAW Binary file
-loongarch32r-linux-gnusf-objcopy -O binary -j .text -j .bss "$output_file_name.bin" "$output_file_name.raw"
+loongarch32r-linux-gnusf-objcopy -O binary -j .text "$output_file_name.elf" "${output_file_name}_inst.bin"
+loongarch32r-linux-gnusf-objcopy -O binary -j .data "$output_file_name.elf" "${output_file_name}_data.bin"
 # Check if the strip was successful
 if [ $? -eq 0 ]; then
     echo "Dump successful. The RAW Binary is created."
