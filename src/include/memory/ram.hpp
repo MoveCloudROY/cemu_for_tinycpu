@@ -29,6 +29,9 @@ public:
         std::ifstream file(init_file, std::ios::in | std::ios::binary);
         file.read((char *)mem, file_size);
     }
+    ~ram() {
+        delete[] mem;
+    }
     void load_binary(uint64_t start_addr, const char *init_file) {
         uint64_t file_size = std::filesystem::file_size(init_file);
         if (file_size > mem_size) {
