@@ -13,18 +13,18 @@
 template <int nr_tlb_entry = 32>
 class la32r_core {
 public:
-    la32r_core(uint32_t core_id, memory_bus &bus, bool trace)
+    la32r_core(uint32_t core_id, memory_bus &bus, bool trace, uint32_t start_addr = 0x1c000000u)
         : mmu(bus)
         , csr(core_id, pc, mmu)
         , trace(trace) {
-        reset();
+        reset(start_addr);
     }
 
-    void reset() {
+    void reset(uint32_t start_addr) {
         idle    = false;
         end     = false;
         counter = 0;
-        pc      = 0x1c000000u;
+        pc      = start_addr;
         memset(GPR, 0, sizeof(GPR));
         mmu.reset();
         csr.reset();
