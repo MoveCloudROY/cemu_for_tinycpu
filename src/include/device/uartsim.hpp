@@ -81,7 +81,7 @@ public:
         switch (start_addr) {
         case UARTSIM_TX_RX_DATA: {
             tx.push(static_cast<char>(*buffer));
-            CTL |= 0x01;
+            CTL &= 0xFE;
             break;
         }
         case UARTSIM_OCCUPY_1: {
@@ -120,7 +120,7 @@ public:
             char res = tx.front();
             tx.pop();
             if (tx.empty())
-                CTL &= 0xFE;
+                CTL |= 0x01;
             return res;
         } else
             return EOF;
@@ -133,12 +133,13 @@ public:
 private:
     const static uint64_t UART_RX = 0;
     const static uint64_t UART_TX = 0;
-    std::queue<char>      rx;
-    std::queue<char>      tx;
-    std::mutex            rx_lock;
-    std::mutex            tx_lock;
+
+    std::mutex rx_lock;
+    std::mutex tx_lock;
 
 public:
+    std::queue<char> rx;
+    std::queue<char> tx;
     // regs
     unsigned char DATA;
     unsigned char _OCUPPY_1;
