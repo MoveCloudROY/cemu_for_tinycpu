@@ -53,11 +53,11 @@ public:
     bool is_end() {
         return end;
     }
-    // la32r_instr instr;
+    la32r_instr instr;
 
 private:
     void exec(uint8_t exc_int) {
-        la32r_instr   instr;
+        // la32r_instr   instr;
         la32r_exccode if_exc;
         uint32_t      next_pc;
         bool          cur_control_trans = false;
