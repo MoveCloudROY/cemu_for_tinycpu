@@ -473,6 +473,8 @@ private:
     }
 
     void set_GPR(uint8_t index, uint32_t value) {
+        if (index == 0)
+            return;
         GPR[index] = value;
         if (trace) {
             fprintf(stderr, "pc = %08x,  reg = %02d, val = %08x\n", pc, index, value);
